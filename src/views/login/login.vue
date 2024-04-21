@@ -1,5 +1,6 @@
 <script setup>
 import { User,Lock} from '@element-plus/icons-vue'
+import {ElMessage} from "element-plus";
 // 通过isRegister控制展示注册/登录
 import {ref} from 'vue'
 
@@ -52,13 +53,9 @@ const registerRules = ref({
 import { registerService} from "@/api/user.js";
 const register = async () =>{
   // console.log(registerData.value)
-  let result  = await registerService(registerData.value)
-  // console.log(result)
-  if(result.code === 0){
-    alert('注册成功')
-  }else {
-    alert('注册失败')
-  }
+ await registerService(registerData.value)
+  ElMessage.success('注册成功')
+
 }
 /**
  * 2.登录相关业务
@@ -69,12 +66,8 @@ import { loginService } from "@/api/user.js";
 const login = async () =>{
   // console.log('登录')
   // console.log(registerData.value)
-  let result = await loginService(registerData.value)
-  if(result.code === 0) {
-    alert('登录成功')
-  }else {
-    alert('登录失败')
-  }
+  await loginService(registerData.value)
+  ElMessage.success('登录成功')
 }
 
 </script>
