@@ -24,6 +24,7 @@
   + vue-router
 #### element组件
   + el-dropdown下拉菜单
+  + el-menu菜单 侧边导航栏 sub-menu二级菜单
   + el-container外层容器
   + el-aside侧边容器
   + el-header顶部容器

@@ -25,18 +25,21 @@ const tologin = () => {
       <div class="el-aside__logo"></div>
       <el-menu active-text-color="#ffd04b" background-color="#232323"  text-color="#fff"
                router>
-        <el-menu-item >
+<!--        el-menu-item 标签的index属性可以设置点击后的路由路径-->
+        <el-menu-item index="/article/category">
           <el-icon>
             <Management />
           </el-icon>
           <span>文章分类</span>
         </el-menu-item>
-        <el-menu-item >
+
+        <el-menu-item index="/article/manage">
           <el-icon>
             <Promotion />
           </el-icon>
           <span>文章管理</span>
         </el-menu-item>
+
         <el-sub-menu >
           <template #title>
             <el-icon>
@@ -44,25 +47,26 @@ const tologin = () => {
             </el-icon>
             <span>个人中心</span>
           </template>
-          <el-menu-item >
+          <el-menu-item index="/user/info">
             <el-icon>
               <User />
             </el-icon>
             <span>基本资料</span>
           </el-menu-item>
-          <el-menu-item >
+          <el-menu-item index="/user/avatar">
             <el-icon>
               <Crop />
             </el-icon>
             <span>更换头像</span>
           </el-menu-item>
-          <el-menu-item >
+          <el-menu-item index="/user/password">
             <el-icon>
               <EditPen />
             </el-icon>
             <span>重置密码</span>
           </el-menu-item>
         </el-sub-menu>
+
       </el-menu>
     </el-aside>
     <!-- 右侧主区域 -->
@@ -87,10 +91,11 @@ const tologin = () => {
           </template>
         </el-dropdown>
       </el-header>
-      <!-- 中间区域 -->
+      <!-- 中间区域 main-->
       <el-main>
         <div style="width: 1290px; height: 570px;border: 1px solid red;">
-          内容展示区
+            <!--  二级路由展示区        -->
+            <router-view />
         </div>
       </el-main>
       <!-- 底部区域 -->
