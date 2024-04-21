@@ -1,6 +1,7 @@
 <script setup>
 import { User,Lock} from '@element-plus/icons-vue'
 import {ElMessage} from "element-plus";
+
 // 通过isRegister控制展示注册/登录
 import {ref} from 'vue'
 
@@ -62,12 +63,19 @@ const register = async () =>{
  */
 
 // 登录事件
+import {useTokenStore} from'@/stores/token.js'
+const tokenStore = useTokenStore()
 import { loginService } from "@/api/user.js";
+import router from "@/router/index.js";
 const login = async () =>{
   // console.log('登录')
   // console.log(registerData.value)
-  await loginService(registerData.value)
+  let result = await loginService(registerData.value)
+  // console.log(result)
+  // tokenStore.setToken(result.data)
+  tokenStore.setToken(result.data)
   ElMessage.success('登录成功')
+  router.push('/')
 }
 
 </script>
