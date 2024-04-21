@@ -27,6 +27,13 @@ const categorys = ref([
     "updateTime": "2023-09-02 12:08:33"
   }
 ])
+// 获取文章分类
+import { articleCategoryListService} from '@/api/article.js'
+const getAllCategory = async () => {
+  const res = await articleCategoryListService()
+  categorys.value = res.data
+}
+getAllCategory();
 </script>
 
 <template>
