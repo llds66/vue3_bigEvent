@@ -1,6 +1,5 @@
 <script setup>
 import { User,Lock} from '@element-plus/icons-vue'
-
 // 通过isRegister控制展示注册/登录
 import {ref} from 'vue'
 const isRegister = ref(false)
@@ -36,9 +35,19 @@ const registerRules = ref({
   ]
 })
 
-const register = () =>{
-  console.log(registerData.value)
+// 注册事件
+import { registerService} from "@/api/user.js";
+const register = async () =>{
+  // console.log(registerData.value)
+  let result  = await registerService(registerData.value)
+  // console.log(result)
+  if(result.code === 0){
+    alert('注册成功')
+  }else {
+    alert('注册失败')
+  }
 }
+
 
 </script>
 
