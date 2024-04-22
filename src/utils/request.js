@@ -1,10 +1,24 @@
 import {ElMessage} from "element-plus";
 
 import axios from 'axios';
+import {useTokenStore} from "@/stores/token.js";
 //定义一个变量,记录公共的前缀  ,  baseURL
 const baseURL = '/api';
 const instance = axios.create({baseURL})
-
+// 添加请求拦截器： 请求之前的操作
+instance.interceptors.request.use(
+    (config) =>{
+        let tokenStore = useTokenStore()
+        // 判断是否有token，有则放在请求头中
+        if(tokenStore.token){
+            config.headers.Authorization = tokenStore.token
+        }
+        return config
+    },
+    (err) =>{
+        Promise.reject(err)
+    }
+)
 //添加响应拦截器
 instance.interceptors.response.use(
     result=>{
