@@ -87,7 +87,7 @@ const onCurrentChange = (num) => {
 }
 
 // 文章分类查询
-import { articleCategoryListService } from '@/api/article.js'
+import {articleAddService, articleCategoryListService} from '@/api/article.js'
 const getArticleCategoryList =async () =>{
   //获取所有分类
   let resultC = await articleCategoryListService();
@@ -97,6 +97,7 @@ const getArticleCategoryList =async () =>{
 
 // 获取文章列表
 import { articleListService } from '@/api/article.js'
+import {ElMessage} from "element-plus";
 const getArticles =async () =>{
   // 请求的数据
   let params = {
@@ -136,7 +137,15 @@ const articleModel = ref({
   content:'',
   state:''
 })
-
+const addArticle = async (state) => {
+  articleModel.value.state = state
+ let result =  await articleAddService(articleModel.value)
+  ElMessage.success(result.message? result.message:'添加成功')
+  //再次调用getArticles,获取文章
+  getArticles()
+  //隐藏抽屉
+  visibleDrawer.value=false
+}
 </script>
 
 <template>
@@ -235,8 +244,8 @@ const articleModel = ref({
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary">发布</el-button>
-        <el-button type="info">草稿</el-button>
+        <el-button type="primary" @click="addArticle('已发布')">发布</el-button>
+        <el-button type="info" @click="addArticle('草稿')">草稿</el-button>
       </el-form-item>
 
     </el-form>
