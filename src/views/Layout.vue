@@ -93,7 +93,7 @@ const tologin = () => {
       </el-header>
       <!-- 中间区域 main-->
       <el-main>
-        <div style="width: 1290px; height: 570px;border: 1px solid red;">
+        <div style="width: 1290px; height: 570px;">
             <!--  二级路由展示区        -->
             <router-view />
         </div>
