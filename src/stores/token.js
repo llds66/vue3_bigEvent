@@ -8,7 +8,9 @@ import {ref} from "vue";
     defineStore返回值描述：
         返回的是一个函数，将来可以调用该函数，得到第二个参数中返回的内容
 */
-
+/**
+ * token
+ */
 export const useTokenStore = defineStore('token',() =>{
     // 定义一个ref，用来存储token
     const token = ref('')
@@ -32,3 +34,23 @@ export const useTokenStore = defineStore('token',() =>{
         persist:true
     }
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

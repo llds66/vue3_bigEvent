@@ -16,6 +16,21 @@ const router = useRouter()
 const tologin = () => {
   router.push('/login')
 }
+
+// 个人信息存token
+//导入接口函数
+import {userInfoGetService} from '@/api/user.js'
+//导入pinia
+import {useUserInfoStore} from '@/stores/user.js'
+const userInfoStore = useUserInfoStore();
+import {ref} from 'vue'
+//获取个人信息
+const getUserInf = async ()=>{
+  let result = await userInfoGetService();
+  //存储pinia
+  userInfoStore.info =result.data;
+}
+getUserInf()
 </script>
 
 <template>
@@ -73,10 +88,10 @@ const tologin = () => {
     <el-container>
       <!-- 头部区域 -->
       <el-header>
-        <div>前端：<strong>llds</strong></div>
+        <div>前端：<strong>{{ userInfoStore.info.nickname ? userInfoStore.info.nickname : userInfoStore.info.usrename }}</strong></div>
         <el-dropdown placement="bottom-end">
                     <span class="el-dropdown__box">
-                        <el-avatar :src="avatar" />
+                        <el-avatar :src="userInfoStore.info.userPic ? userInfoStore.info.userPic : avatar" />
                         <el-icon>
                             <CaretBottom />
                         </el-icon>

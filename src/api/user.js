@@ -20,3 +20,21 @@ export const loginService = (loginData) => {
     }
     return request.post('/user/login', params)
 }
+/**
+ * 3.个人信息
+ */
+export const userInfoGetService = ()=>{
+    return request.get('/user/userInfo');
+}
+
+
+
+
+
+
+
+
+
+
+
+
