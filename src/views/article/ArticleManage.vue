@@ -5,6 +5,7 @@ import {
   Delete
 } from '@element-plus/icons-vue'
 
+
 //文章分类数据模型
 const categorys = ref([
   {
@@ -62,18 +63,25 @@ const articles = ref([
     "updateTime": "2023-09-03 11:55:30"
   },
 ])
-
+// 用户搜索时选中的分类id
+const categoryId = ref('')
+// 用户搜索选中的发布状态
+const state = ref('')
 //分页条数据模型
 const pageNum = ref(1)//当前页
 const total = ref(20)//总条数
 const pageSize = ref(3)//每页条数
+
+
 //当每页条数发生了变化，调用此函数
 const onSizeChange = (size) => {
   pageSize.value = size
+  getArticles()
 }
 //当前页码发生变化，调用此函数
 const onCurrentChange = (num) => {
   pageNum.value = num
+  getArticles()
 }
 
 // 文章分类查询
@@ -84,6 +92,32 @@ const getArticleCategoryList =async () =>{
   categorys.value = resultC.data
 }
 getArticleCategoryList();
+
+// 获取文章列表
+import { articleListService } from '@/api/article.js'
+const getArticles =async () =>{
+  // 请求的数据
+  let params = {
+    pageNum: pageNum.value,
+    pageSize: pageSize.value,
+    categoryId: categoryId.value ? categoryId.value : null,
+    state: state.value ? state.value : null
+  }
+  let result = await articleListService(params);
+  //渲染列表数据
+  articles.value = result.data.items
+  //为列表中添加categoryName属性
+  for(let i=0;i<articles.value.length;i++){
+    let article = articles.value[i];
+    for(let j=0;j<categorys.value.length;j++){
+      if(article.categoryId===categorys.value[j].id){
+        article.categoryName=categorys.value[j].categoryName
+      }
+    }
+  }
+  total.value = result.data.total
+}
+getArticles()
 </script>
 
 <template>
