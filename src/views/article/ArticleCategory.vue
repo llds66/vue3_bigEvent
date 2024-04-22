@@ -35,7 +35,8 @@ const getAllCategory = async () => {
   categorys.value = res.data
 }
 getAllCategory();
-// 添加分类弹窗 数据 校验规则
+// 添加/修改分类弹窗 数据 校验规则
+const title = ref('') //弹窗的标题
 const dialogVisible = ref(false)
 const categoryModel = ref({
   categoryName:'',
@@ -49,7 +50,7 @@ const rules = {
     { required: true, message: '请输入分类别名', trigger: 'blur' },
   ]
 }
-// 新增文章分类确认方法
+// 新增文章分类方法
 const addCategory = async () =>{
   // console.log(categoryModel.value)
   let result = await articleCategoryAddService(categoryModel.value)
@@ -57,6 +58,19 @@ const addCategory = async () =>{
   // console.log(result)
   dialogVisible.value=false
   getAllCategory()
+}
+
+// 修改文章分类
+const updateCategoryEcho = (row) =>{
+  title.value = '修改分类'
+  dialogVisible.value = true
+  //当前行数据回显到弹窗表格 通过插槽的方式得到被点击按钮所在行的数据
+  // console.log(row)
+  categoryModel.value.categoryAlias=row.categoryAlias
+  categoryModel.value.categoryName=row.categoryName
+  //修改的时候必须传递分类的id，所以扩展一个id属性
+  categoryModel.value.id=row.id
+
 }
 </script>
 
@@ -66,7 +80,7 @@ const addCategory = async () =>{
       <div class="header">
         <span>文章分类</span>
         <div class="extra">
-          <el-button type="primary" @click="dialogVisible = true">添加分类</el-button>
+          <el-button type="primary" @click="title='添加分类';dialogVisible = true">添加分类</el-button>
         </div>
       </div>
     </template>
@@ -77,7 +91,7 @@ const addCategory = async () =>{
       <el-table-column label="分类别名" prop="categoryAlias"></el-table-column>
       <el-table-column label="操作" width="100">
         <template #default="{ row }">
-          <el-button :icon="Edit" circle plain type="primary" ></el-button>
+          <el-button :icon="Edit" circle plain type="primary" @click="updateCategoryEcho(row)"></el-button>
           <el-button :icon="Delete" circle plain type="danger"></el-button>
         </template>
       </el-table-column>
@@ -87,7 +101,7 @@ const addCategory = async () =>{
     </el-table>
   </el-card>
   <!-- 添加分类的对话框 -->
-  <el-dialog v-model="dialogVisible" title="添加弹层" width="30%">
+  <el-dialog v-model="dialogVisible" :title="title" width="30%">
 
     <el-form :model="categoryModel" :rules="rules" label-width="100px" style="padding-right: 30px">
       <el-form-item label="分类名称" prop="categoryName">

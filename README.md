@@ -36,3 +36,4 @@
   + el-card卡片
   + Pinia状态管理
   + Pinia持久化插件：pinia-persistedstate-plugin
+  + el-dialog弹窗
