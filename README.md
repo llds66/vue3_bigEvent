@@ -44,4 +44,5 @@
   + el-drawer抽屉
   + el-option选择器
   + el-upload
+  + el-dropdown
   + 富文本编辑器 Quill
