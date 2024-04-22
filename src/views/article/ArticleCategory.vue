@@ -28,7 +28,7 @@ const categorys = ref([
   }
 ])
 // 获取文章分类
-import {articleCategoryAddService, articleCategoryListService} from '@/api/article.js'
+import {articleCategoryAddService, articleCategoryListService, articleCategoryUpdateService} from '@/api/article.js'
 import {ElMessage} from "element-plus";
 const getAllCategory = async () => {
   const res = await articleCategoryListService()
@@ -70,6 +70,15 @@ const updateCategoryEcho = (row) =>{
   categoryModel.value.categoryName=row.categoryName
   //修改的时候必须传递分类的id，所以扩展一个id属性
   categoryModel.value.id=row.id
+
+}
+
+const updateCategory = async () =>{
+  let result = await articleCategoryUpdateService(categoryModel.value)
+  ElMessage.success(result.message?result.message:'修改成功')
+  dialogVisible.value =false
+  getAllCategory()
+
 
 }
 </script>
@@ -115,7 +124,7 @@ const updateCategoryEcho = (row) =>{
     <template #footer>
         <span class="dialog-footer">
             <el-button @click="dialogVisible = false">取消</el-button>
-            <el-button type="primary" @click="addCategory"> 确认 </el-button>
+            <el-button type="primary" @click="title==='添加分类' ?addCategory():updateCategory()"> 确认 </el-button>
         </span>
     </template>
   </el-dialog>
