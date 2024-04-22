@@ -28,7 +28,8 @@ const categorys = ref([
   }
 ])
 // 获取文章分类
-import { articleCategoryListService} from '@/api/article.js'
+import {articleCategoryAddService, articleCategoryListService} from '@/api/article.js'
+import {ElMessage} from "element-plus";
 const getAllCategory = async () => {
   const res = await articleCategoryListService()
   categorys.value = res.data
@@ -47,6 +48,15 @@ const rules = {
   categoryAlias: [
     { required: true, message: '请输入分类别名', trigger: 'blur' },
   ]
+}
+// 新增文章分类确认方法
+const addCategory = async () =>{
+  // console.log(categoryModel.value)
+  let result = await articleCategoryAddService(categoryModel.value)
+  ElMessage.success(result.message?result.message:'添加成功')
+  // console.log(result)
+  dialogVisible.value=false
+  getAllCategory()
 }
 </script>
 
@@ -76,7 +86,6 @@ const rules = {
       </template>
     </el-table>
   </el-card>
-
   <!-- 添加分类的对话框 -->
   <el-dialog v-model="dialogVisible" title="添加弹层" width="30%">
 
@@ -92,7 +101,7 @@ const rules = {
     <template #footer>
         <span class="dialog-footer">
             <el-button @click="dialogVisible = false">取消</el-button>
-            <el-button type="primary"> 确认 </el-button>
+            <el-button type="primary" @click="addCategory"> 确认 </el-button>
         </span>
     </template>
   </el-dialog>
