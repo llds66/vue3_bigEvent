@@ -50,7 +50,14 @@ const rules = {
     { required: true, message: '请输入分类别名', trigger: 'blur' },
   ]
 }
-// 新增文章分类方法
+// 添加分类按钮
+const addbtn = () =>{
+  title.value = '添加分类'
+  dialogVisible.value = true;
+  categoryModel.value.categoryName=''
+  categoryModel.value.categoryAlias=''
+}
+// 新增分类方法请求
 const addCategory = async () =>{
   // console.log(categoryModel.value)
   let result = await articleCategoryAddService(categoryModel.value)
@@ -60,7 +67,7 @@ const addCategory = async () =>{
   getAllCategory()
 }
 
-// 修改文章分类
+// 修改分类按钮
 const updateCategoryEcho = (row) =>{
   title.value = '修改分类'
   dialogVisible.value = true
@@ -70,16 +77,13 @@ const updateCategoryEcho = (row) =>{
   categoryModel.value.categoryName=row.categoryName
   //修改的时候必须传递分类的id，所以扩展一个id属性
   categoryModel.value.id=row.id
-
 }
-
+// 修改分类方法请求
 const updateCategory = async () =>{
   let result = await articleCategoryUpdateService(categoryModel.value)
   ElMessage.success(result.message?result.message:'修改成功')
   dialogVisible.value =false
   getAllCategory()
-
-
 }
 </script>
 
@@ -89,7 +93,7 @@ const updateCategory = async () =>{
       <div class="header">
         <span>文章分类</span>
         <div class="extra">
-          <el-button type="primary" @click="title='添加分类';dialogVisible = true">添加分类</el-button>
+          <el-button type="primary" @click="addbtn">添加分类</el-button>
         </div>
       </div>
     </template>
