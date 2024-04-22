@@ -18,3 +18,10 @@ export const articleCategoryAddService = (categoryModel) =>{
 export const articleCategoryUpdateService = (categoryModel)=>{
     return request.put('/category',categoryModel)
 }
+/*
+* 4. 修改文章分类
+* */
+export const articleCategoryDeleteService = (id)=>{
+    // return request.delete('/category?id=' + id)
+    return request.delete(`/category?id=${id}`)
+}

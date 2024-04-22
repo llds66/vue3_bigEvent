@@ -28,8 +28,13 @@ const categorys = ref([
   }
 ])
 // 获取文章分类
-import {articleCategoryAddService, articleCategoryListService, articleCategoryUpdateService} from '@/api/article.js'
-import {ElMessage} from "element-plus";
+import {
+  articleCategoryAddService,
+  articleCategoryDeleteService,
+  articleCategoryListService,
+  articleCategoryUpdateService
+} from '@/api/article.js'
+import {ElMessage, ElMessageBox} from "element-plus";
 const getAllCategory = async () => {
   const res = await articleCategoryListService()
   categorys.value = res.data
@@ -77,6 +82,7 @@ const updateCategoryEcho = (row) =>{
   categoryModel.value.categoryName=row.categoryName
   //修改的时候必须传递分类的id，所以扩展一个id属性
   categoryModel.value.id=row.id
+  // console.log(row.id)
 }
 // 修改分类方法请求
 const updateCategory = async () =>{
@@ -84,6 +90,32 @@ const updateCategory = async () =>{
   ElMessage.success(result.message?result.message:'修改成功')
   dialogVisible.value =false
   getAllCategory()
+}
+
+// 删除分类
+const deleteCategory = (row) => {
+  ElMessageBox.confirm(
+      '你确认删除该分类信息吗？',
+      '温馨提示',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  )
+      .then(async () => {
+       let result =  await articleCategoryDeleteService(row.id)
+        console.log(result)
+        ElMessage.success(result.message?result.message:'删除成功')
+        getAllCategory()
+      })
+      .catch(() => {
+        //用户点击了取消
+        ElMessage({
+          type: 'info',
+          message: '取消删除',
+        })
+      })
 }
 </script>
 
@@ -105,7 +137,7 @@ const updateCategory = async () =>{
       <el-table-column label="操作" width="100">
         <template #default="{ row }">
           <el-button :icon="Edit" circle plain type="primary" @click="updateCategoryEcho(row)"></el-button>
-          <el-button :icon="Delete" circle plain type="danger"></el-button>
+          <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button>
         </template>
       </el-table-column>
       <template #empty>
