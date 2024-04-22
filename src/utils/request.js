@@ -2,6 +2,7 @@ import {ElMessage} from "element-plus";
 
 import axios from 'axios';
 import {useTokenStore} from "@/stores/token.js";
+import router from "@/router/index.js";
 //定义一个变量,记录公共的前缀  ,  baseURL
 const baseURL = '/api';
 const instance = axios.create({baseURL})
@@ -29,7 +30,13 @@ instance.interceptors.response.use(
         return Promise.reject(result.data);
     },
     err=>{
-        ElMessage.error('服务异常');
+        if(err.response.status === 401){
+            ElMessage.error('请先登录！')
+            router.push('/')
+        }else {
+            ElMessage.error('服务异常');
+
+        }
         return Promise.reject(err);//异步的状态转化成失败的状态
     }
 )
