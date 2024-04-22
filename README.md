@@ -41,3 +41,6 @@
 ### (五)主页-文章管理
   + el-select
   + el-pagination分页
+  + el-drawer抽屉
+  + el-option选择器
+  + el-upload
