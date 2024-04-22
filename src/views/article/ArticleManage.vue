@@ -5,7 +5,8 @@ import {
   Delete,
   Plus
 } from '@element-plus/icons-vue'
-
+import {QuillEditor } from "@vueup/vue-quill";
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 //文章分类数据模型
 const categorys = ref([
@@ -223,7 +224,14 @@ const articleModel = ref({
       </el-form-item>
 
       <el-form-item label="文章内容">
-        <div class="editor">富文本编辑器</div>
+        <div class="editor">
+          <quill-editor
+              theme="snow"
+              v-model:content="articleModel.content"
+              contentType="html"
+          >
+          </quill-editor>
+        </div>
       </el-form-item>
 
       <el-form-item>
