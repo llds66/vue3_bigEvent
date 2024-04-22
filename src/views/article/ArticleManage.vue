@@ -91,7 +91,7 @@ const getArticleCategoryList =async () =>{
   let resultC = await articleCategoryListService();
   categorys.value = resultC.data
 }
-getArticleCategoryList();
+
 
 // 获取文章列表
 import { articleListService } from '@/api/article.js'
@@ -106,9 +106,9 @@ const getArticles =async () =>{
   let result = await articleListService(params);
   //渲染列表数据
   articles.value = result.data.items
-  //为列表中添加categoryName属性
+  //为列表中添加categoryName属性,从分类获取
   for(let i=0;i<articles.value.length;i++){
-    let article = articles.value[i];
+    let article = articles.value[i]; //当前列的数据
     for(let j=0;j<categorys.value.length;j++){
       if(article.categoryId===categorys.value[j].id){
         article.categoryName=categorys.value[j].categoryName
@@ -117,6 +117,7 @@ const getArticles =async () =>{
   }
   total.value = result.data.total
 }
+getArticleCategoryList();
 getArticles()
 </script>
 
@@ -159,7 +160,7 @@ getArticles()
     <!-- 文章列表 -->
     <el-table :data="articles" style="width: 100%">
       <el-table-column label="文章标题" width="400" prop="title"></el-table-column>
-      <el-table-column label="分类" prop="categoryId"></el-table-column>
+      <el-table-column label="分类" prop="categoryName"></el-table-column>
       <el-table-column label="发表时间" prop="createTime"> </el-table-column>
       <el-table-column label="状态" prop="state"></el-table-column>
       <el-table-column label="操作" width="100">
