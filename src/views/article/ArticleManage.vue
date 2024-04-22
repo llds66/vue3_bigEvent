@@ -117,6 +117,8 @@ const getArticles =async () =>{
   }
   total.value = result.data.total
 }
+
+
 getArticleCategoryList();
 getArticles()
 </script>
@@ -152,8 +154,8 @@ getArticles()
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">搜索</el-button>
-        <el-button>重置</el-button>
+        <el-button type="primary" @click="getArticles">搜索</el-button>
+        <el-button  @click="categoryId='';state=''">重置</el-button>
       </el-form-item>
     </el-form>
 
