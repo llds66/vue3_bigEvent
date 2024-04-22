@@ -43,6 +43,8 @@
   + el-pagination分页
   + el-drawer抽屉
   + el-option选择器
-  + el-upload
+  + el-upload代码未写
   + el-dropdown
   + 富文本编辑器 Quill
+### (六)主页-个人信息
+  + el-upload代码未写

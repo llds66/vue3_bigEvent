@@ -224,6 +224,7 @@ const addArticle = async (state) => {
       </el-form-item>
 
       <el-form-item label="文章封面">
+<!--        -------代码未写---------        -->
         <el-upload class="avatar-uploader" :auto-upload="false" :show-file-list="false">
           <img v-if="articleModel.coverImg" :src="articleModel.coverImg" class="avatar" />
           <el-icon v-else class="avatar-uploader-icon">

@@ -1,12 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-// 用户信息数据
-// const userInfo = ref({
-//   id: 0,
-//   username: 'zhangsan',
-//   nickname: 'zs',
-//   email: 'zs@163.com',
-// })
 // 校验规则
 const rules = {
   nickname: [
