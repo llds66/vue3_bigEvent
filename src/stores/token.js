@@ -1,6 +1,5 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-
 /*
     defineStore参数描述：
         第一个参数：给状态起名，具有唯一性

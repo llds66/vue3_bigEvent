@@ -1,7 +1,7 @@
 import request from "@/utils/request.js";
 
 /**
- * 1.注册接口
+ * 1.注册接口(请求参数格式：x-www-form-urlencoded)
  */
 export const registerService = (registerData) => {
     var params = new URLSearchParams();
@@ -11,7 +11,7 @@ export const registerService = (registerData) => {
     return request.post('/user/register', params)
 }
 /**
- * 2.登录接口
+ * 2.登录接口(请求参数格式：x-www-form-urlencoded)
  */
 export const loginService = (loginData) => {
     var params = new URLSearchParams();
@@ -33,7 +33,7 @@ export const userInfoUpdateService = (userInfo)=>{
     return request.put('/user/update',userInfo)
 }
 /**
- * 5.修改个人头像
+ * 5.修改个人头像(请求参数格式：x-www-form-urlencoded)
  */
 export const userAvatarUpdateService=(avatarUrl)=>{
     let params = new URLSearchParams();

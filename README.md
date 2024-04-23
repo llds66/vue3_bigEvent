@@ -48,3 +48,18 @@
   + 富文本编辑器 Quill
 ### (六)主页-个人信息
   + el-upload代码未写
+
+## 疑问
+ + 请求格式为x-www-form-urlencoded时，如何将请求参数转为json格式，使用URLSearchParams()对象
+ ```js
+/**
+ * 1.注册接口(请求参数格式：x-www-form-urlencoded)
+ */
+export const registerService = (registerData) => {
+    var params = new URLSearchParams();
+    for(let key in registerData){
+        params.append(key, registerData[key]);
+    }
+    return request.post('/user/register', params)
+}
+ ```

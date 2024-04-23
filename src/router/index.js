@@ -1,5 +1,4 @@
 import { createRouter,createWebHistory} from "vue-router";
-
 import LoginVue from '@/views/Login.vue'
 import Layout from "@/views/Layout.vue";
 
@@ -27,9 +26,38 @@ const routes = [
     }
 ]
 
+
+
+
 const router = createRouter({
     history:createWebHistory(),
     routes
 });
 
+// 路由前置守卫(也可以用axios响应拦截器)
+// import { useTokenStore } from "@/stores/token";
+// router.beforeEach((to,from,next)=>{
+// //     判断是否有token
+//     const token = useTokenStore()
+//     if(token.token){
+//         next()
+//     }else{
+//         if(to.path === '/login'){
+//             next()
+//         }else{
+//             next({path:'/login'})
+//         }
+//     }
+// })
 export default router;
+
+
+
+
+
+
+
+
+
+
+
